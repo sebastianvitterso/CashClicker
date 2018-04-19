@@ -3,6 +3,7 @@ package com.example.cashclicker;
 import android.content.Context;
 
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -22,7 +23,8 @@ public class CashClicker {
     int clicks;
     int pricePerAutoClicker;
     int priceForBetterClicks;
-    String filename = "savedData.txt";
+    Context context;
+    String filename;
 
     public CashClicker() {
         cash = 0;
@@ -111,7 +113,7 @@ public class CashClicker {
         outputStream.close();*/
         /*File file = new File(filename);
         file.createNewFile();
-        */
+        *//*
         PrintWriter writer = new PrintWriter(filename, "UTF-8");
         writer.println(cash);
         writer.println(cashPerSecond);
@@ -119,7 +121,19 @@ public class CashClicker {
         writer.println(clicks);
         writer.println(pricePerAutoClicker);
         writer.println(priceForBetterClicks);
-        writer.close();
+        writer.close();*/
+        filename = context.getFilesDir().getPath().toString() + "/savedData.txt";
+        File file = new File(filename);
+        file.createNewFile();
+
+        DataOutputStream stream = new DataOutputStream(new FileOutputStream(file));
+        stream.writeInt(cash);
+        stream.writeInt(cashPerSecond);
+        stream.writeInt(cashPerClick);
+        stream.writeInt(clicks);
+        stream.writeInt(pricePerAutoClicker);
+        stream.writeInt(priceForBetterClicks);
+        stream.close();
     }
 
     public void loadFromFile() throws IOException {
@@ -134,7 +148,8 @@ public class CashClicker {
             priceForBetterClicks = Integer.valueOf(sc.nextLine());
         }
         sc.close();*/
-        File file = new File("savedData.txt");
+        filename = context.getFilesDir().getPath().toString() + "/savedData.txt";
+        File file = new File(filename);
         BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
 
         while (reader.ready()) {
