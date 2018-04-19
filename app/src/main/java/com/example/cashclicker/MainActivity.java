@@ -8,7 +8,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStreamReader;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -19,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     Button betterClickButton;
     Button saveButton;
     Button loadButton;
-    Context context;
+    String cashOutput;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,52 +56,33 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
+
         saveButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                try{
-                    cashClicker.saveToFile();
-                }catch(IOException e){
-                    messageTextView.setText("Save failed on saveButton \n " + e);
-                    System.out.println(e);
-                }
+                saveToFile();
             }
-
         });
         loadButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                try{
-                    cashClicker.loadFromFile();
-                }catch(IOException e){
-                    messageTextView.setText("Load failed on saveButton \n " + e);
-                    System.out.println(e);
-                }
+                loadFromFile();
+                update();
             }
-
         });
 
-        try {
-            String filename = context.getFilesDir().getPath().toString() + "/savedData.txt";
-            cashClicker.setFilename(filename);
-            load();}
-        catch (Exception e){
-            messageTextView.setText("Load failed in onCreate \n " + e);
-            System.out.println(e);
-        }
-            update();
 
-            new CountDownTimer(2000000000, 1000)
+        loadFromFile();
+        update();
+
+        new CountDownTimer(2000000000, 1000)
+        {
+            public void onTick(long millisUntilFinished)
             {
-                public void onTick(long millisUntilFinished)
-                {
-                    cashClicker.autoClick();
-                    update();
-                }
+                cashClicker.autoClick();
+                update();
+            }
 
-                public void onFinish()
-                {
-                    // finish off when we're all dead !
-                }
-            }.start();
+            public void onFinish(){/* kode som skal skje etter 46 dager ellerno*/}
+        }.start();
 
 
 
@@ -105,22 +90,11 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onPause() {
-        try {
-            super.onPause();
-            save();
-        }
-        catch (Exception e){
-            messageTextView.setText("Save failed in onCreate \n " + e);
-            System.out.println(e);
-        }
-
+        super.onPause();
+        // Put save method here
     }
 
 
-
-
-
-    String cashOutput;
 
     void controllerClick() {
         cashClicker.click();
@@ -147,18 +121,50 @@ public class MainActivity extends AppCompatActivity {
         betterClickButton.setText("Kjøp bedre trykk\n" + cashClicker.priceForBetterClicks + " kr");
     }
 
-    void save() throws IOException{
-        cashClicker.saveToFile();
+
+
+
+
+
+    public static final String textFileLocation = "savedData.txt";
+
+    public void saveToFile(){
+        String saveString = "";
+        saveString += cashClicker.cash + "\n";
+        saveString += cashClicker.cashPerSecond + "\n";
+        saveString += cashClicker.cashPerClick + "\n";
+        saveString += cashClicker.clicks + "\n";
+        saveString += cashClicker.pricePerAutoClicker + "\n";
+        saveString += cashClicker.priceForBetterClicks;
+
+        try{
+            FileOutputStream fos = openFileOutput(textFileLocation, Context.MODE_PRIVATE);
+            fos.write(saveString.getBytes());
+            fos.close();
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    void load () throws IOException {
-        cashClicker.loadFromFile();
-        update();
+    public void loadFromFile(){
+        try{
+            FileInputStream fis = openFileInput(textFileLocation);
+
+            BufferedReader reader = new BufferedReader(new InputStreamReader(new DataInputStream(fis)));
+
+            cashClicker.cash = Integer.valueOf(reader.readLine());
+            cashClicker.cashPerSecond = Integer.valueOf(reader.readLine());
+            cashClicker.cashPerClick = Integer.valueOf(reader.readLine());
+            cashClicker.clicks = Integer.valueOf(reader.readLine());
+            cashClicker.pricePerAutoClicker = Integer.valueOf(reader.readLine());
+            cashClicker.priceForBetterClicks = Integer.valueOf(reader.readLine());
+
+            fis.close();
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+        }
     }
-
-
-
-
-
 
 }

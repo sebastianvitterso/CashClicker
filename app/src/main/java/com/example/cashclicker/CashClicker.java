@@ -1,19 +1,8 @@
 package com.example.cashclicker;
 
 import android.content.Context;
-
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.util.Scanner;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.logging.Handler;
+import java.util.ArrayList;
 
 public class CashClicker {
 
@@ -85,47 +74,15 @@ public class CashClicker {
     }
 
 
-    /*protected void initialize(){
-        Timer timer = new Timer();
-        timer.schedule(, 0, 1000);
-        //update();
-    }
-
-
-    protected void initializeTimerTask(){
-        TimerTask timerTask = new TimerTask(){
-            public void run() { //TimerTask
-                cashClicker.cash += cashClicker.cashPerSecond;
-                update();
-            }
-
-        };
-    }*/
-
-
-
 // TODO: 19.04.2018 - Implement saving (text file?)
 // https://stackoverflow.com/questions/33740686/android-call-function-on-app-close
 
-    public void saveToFile() throws IOException {
-        /*FileOutputStream outputStream = getApplicationContext().openFileOutput(filename, Context.MODE_PRIVATE);
-        outputStream.write(Integer.toString(cash).getBytes());
-        outputStream.close();*/
-        /*File file = new File(filename);
-        file.createNewFile();
-        *//*
-        PrintWriter writer = new PrintWriter(filename, "UTF-8");
-        writer.println(cash);
-        writer.println(cashPerSecond);
-        writer.println(cashPerClick);
-        writer.println(clicks);
-        writer.println(pricePerAutoClicker);
-        writer.println(priceForBetterClicks);
-        writer.close();*/
-        File file = new File("savedData.txt");
-        file.createNewFile();
 
-        DataOutputStream stream = new DataOutputStream(new FileOutputStream(file));
+
+
+
+    /*
+    DataOutputStream stream = new DataOutputStream(new FileOutputStream(file));
         stream.writeInt(cash);
         stream.writeInt(cashPerSecond);
         stream.writeInt(cashPerClick);
@@ -133,37 +90,9 @@ public class CashClicker {
         stream.writeInt(pricePerAutoClicker);
         stream.writeInt(priceForBetterClicks);
         stream.close();
-    }
+     */
 
-    public void loadFromFile() throws IOException {
 
-        /*Scanner sc = new Scanner(filename);
-        if (sc.hasNextLine()) {
-            cash = Integer.valueOf((sc.nextLine()));
-            cashPerSecond = Integer.valueOf(sc.nextLine());
-            cashPerClick = Integer.valueOf(sc.nextLine());
-            clicks = Integer.valueOf(sc.nextLine());
-            pricePerAutoClicker = Integer.valueOf(sc.nextLine());
-            priceForBetterClicks = Integer.valueOf(sc.nextLine());
-        }
-        sc.close();*/
-        File file = new File("savedData.txt");
-        BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
-
-        while (reader.ready()) {
-            cash = Integer.parseInt((reader.readLine()));
-            cashPerSecond = Integer.parseInt(reader.readLine());
-            cashPerClick = Integer.parseInt(reader.readLine());
-            clicks = Integer.parseInt(reader.readLine());
-            pricePerAutoClicker = Integer.parseInt(reader.readLine());
-            priceForBetterClicks = Integer.parseInt(reader.readLine());
-        }
-        reader.close();
-    }
-
-    public void setFilename(String filename){
-        this.filename = filename;
-    }
 
 
 
