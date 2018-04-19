@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
             load();}
         catch (Exception e){
             messageTextView.setText("Load failed in onCreate \n " + e);
+            System.out.println(e);
         }
             update();
 
@@ -84,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
         }
         catch (Exception e){
             messageTextView.setText("Save failed in onCreate \n " + e);
+            System.out.println(e);
         }
 
     }
