@@ -1,5 +1,6 @@
 package com.example.cashclicker;
 
+import android.content.Context;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
     TextView messageTextView;
     Button autoClickButton;
     Button betterClickButton;
-
+    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
         try {
+            String filename = context.getFilesDir().getPath().toString() + "/savedData.txt";
+            cashClicker.setFilename(filename);
             load();}
         catch (Exception e){
             messageTextView.setText("Load failed in onCreate \n " + e);
