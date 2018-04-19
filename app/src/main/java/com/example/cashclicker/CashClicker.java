@@ -122,7 +122,7 @@ public class CashClicker {
         writer.println(pricePerAutoClicker);
         writer.println(priceForBetterClicks);
         writer.close();*/
-        File file = new File(filename);
+        File file = new File("savedData.txt");
         file.createNewFile();
 
         DataOutputStream stream = new DataOutputStream(new FileOutputStream(file));
@@ -147,7 +147,7 @@ public class CashClicker {
             priceForBetterClicks = Integer.valueOf(sc.nextLine());
         }
         sc.close();*/
-        File file = new File(filename);
+        File file = new File("savedData.txt");
         BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
 
         while (reader.ready()) {

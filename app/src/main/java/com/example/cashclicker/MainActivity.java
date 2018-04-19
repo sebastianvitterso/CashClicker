@@ -17,6 +17,8 @@ public class MainActivity extends AppCompatActivity {
     TextView messageTextView;
     Button autoClickButton;
     Button betterClickButton;
+    Button saveButton;
+    Button loadButton;
     Context context;
 
     @Override
@@ -28,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
         final Button clickButton = (Button) findViewById(R.id.clickButton);
         autoClickButton = (Button) findViewById(R.id.autoClickButton);
         betterClickButton = (Button) findViewById(R.id.betterClickButton);
+        saveButton = (Button) findViewById(R.id.saveButton);
+        loadButton = (Button) findViewById(R.id.loadButton);
         textView2 = (TextView) findViewById(R.id.textView2);
         messageTextView = (TextView) findViewById(R.id.messageTextView);
         clickButton.setOnClickListener(new View.OnClickListener(){
@@ -45,6 +49,28 @@ public class MainActivity extends AppCompatActivity {
         betterClickButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 getBetterClicks();
+            }
+
+        });
+        saveButton.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                try{
+                    cashClicker.saveToFile();
+                }catch(IOException e){
+                    messageTextView.setText("Save failed on saveButton \n " + e);
+                    System.out.println(e);
+                }
+            }
+
+        });
+        loadButton.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                try{
+                    cashClicker.loadFromFile();
+                }catch(IOException e){
+                    messageTextView.setText("Load failed on saveButton \n " + e);
+                    System.out.println(e);
+                }
             }
 
         });
