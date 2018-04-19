@@ -14,6 +14,8 @@ import java.util.logging.Handler;
 public class MainActivity extends AppCompatActivity {
     CashClicker cashClicker = new CashClicker();
     TextView textView2;
+    Button autoClickButton;
+    Button betterClickButton;
 
 
     @Override
@@ -22,8 +24,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         final Button clickButton = (Button) findViewById(R.id.clickButton);
-        final Button autoClickButton = (Button) findViewById(R.id.autoClickButton);
-        final Button betterClickButton = (Button) findViewById(R.id.betterClickButton);
+        autoClickButton = (Button) findViewById(R.id.autoClickButton);
+        betterClickButton = (Button) findViewById(R.id.betterClickButton);
         textView2 = (TextView) findViewById(R.id.textView2);
         clickButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
@@ -84,6 +86,8 @@ public class MainActivity extends AppCompatActivity {
     void update() {
         cashOutput = "Kr " + cashClicker.cash;
         textView2.setText(cashOutput);
+        autoClickButton.setText("Levle selvtrykking\n" + cashClicker.pricePerAutoClicker + " kr");
+        betterClickButton.setText("Kjøp bedre trykk\n" + cashClicker.priceForBetterClicks + " kr");
     }
 
 

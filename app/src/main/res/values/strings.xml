@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Pengetrykker</string>
     <string name="clickButton">Trykk!</string>
-    <string name="autoClickButton">Levle selvtrykking</string>
-    <string name="betterClickButton">Kjøp bedre trykk</string>
+    <string name="autoClickButton">Levle selvtrykking\n 5 kr</string>
+    <string name="betterClickButton">Kjøp bedre trykk\n 5kr</string>
     <string name="cashText">Penger:</string>
 </resources>

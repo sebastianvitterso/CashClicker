@@ -35,7 +35,7 @@
     <Button
         android:id="@+id/autoClickButton"
         android:layout_width="wrap_content"
-        android:layout_height="62dp"
+        android:layout_height="75dp"
         android:layout_margin="10dp"
         android:layout_marginBottom="52dp"
         android:layout_marginLeft="50dp"
@@ -57,7 +57,7 @@
     <Button
         android:id="@+id/betterClickButton"
         android:layout_width="wrap_content"
-        android:layout_height="62dp"
+        android:layout_height="75dp"
         android:layout_margin="10dp"
         android:layout_marginBottom="60dp"
         android:layout_marginEnd="50dp"
