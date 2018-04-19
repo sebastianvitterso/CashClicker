@@ -2,9 +2,12 @@ package com.example.cashclicker;
 
 import android.content.Context;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.Scanner;
 import java.util.Timer;
@@ -121,7 +124,7 @@ public class CashClicker {
 
     public void loadFromFile() throws IOException {
 
-        Scanner sc = new Scanner(filename);
+        /*Scanner sc = new Scanner(filename);
         if (sc.hasNextLine()) {
             cash = Integer.valueOf((sc.nextLine()));
             cashPerSecond = Integer.valueOf(sc.nextLine());
@@ -130,7 +133,19 @@ public class CashClicker {
             pricePerAutoClicker = Integer.valueOf(sc.nextLine());
             priceForBetterClicks = Integer.valueOf(sc.nextLine());
         }
-        sc.close();
+        sc.close();*/
+        File file = new File("savedData.txt");
+        BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
+
+        while (reader.ready()) {
+            cash = Integer.parseInt((reader.readLine()));
+            cashPerSecond = Integer.parseInt(reader.readLine());
+            cashPerClick = Integer.parseInt(reader.readLine());
+            clicks = Integer.parseInt(reader.readLine());
+            pricePerAutoClicker = Integer.parseInt(reader.readLine());
+            priceForBetterClicks = Integer.parseInt(reader.readLine());
+        }
+        reader.close();
     }
 
 
