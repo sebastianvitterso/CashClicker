@@ -117,19 +117,18 @@ public class CashClicker {
         writer.println(pricePerAutoClicker);
         writer.println(priceForBetterClicks);
         writer.close();
-
     }
 
     public void loadFromFile() throws IOException {
 
         Scanner sc = new Scanner(filename);
         if (sc.hasNextLine()) {
-            cash = sc.nextInt();
-            cashPerSecond = sc.nextInt();
-            cashPerClick = sc.nextInt();
-            clicks = sc.nextInt();
-            pricePerAutoClicker = sc.nextInt();
-            priceForBetterClicks = sc.nextInt();
+            cash = Integer.valueOf((sc.nextLine()));
+            cashPerSecond = Integer.valueOf(sc.nextLine());
+            cashPerClick = Integer.valueOf(sc.nextLine());
+            clicks = Integer.valueOf(sc.nextLine());
+            pricePerAutoClicker = Integer.valueOf(sc.nextLine());
+            priceForBetterClicks = Integer.valueOf(sc.nextLine());
         }
         sc.close();
     }
