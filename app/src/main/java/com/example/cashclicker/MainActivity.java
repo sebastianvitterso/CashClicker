@@ -8,48 +8,52 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.io.IOException;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.logging.Handler;
+
 
 public class MainActivity extends AppCompatActivity {
     CashClicker cashClicker = new CashClicker();
     TextView textView2;
+    TextView messageTextView;
     Button autoClickButton;
     Button betterClickButton;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        final Button clickButton = (Button) findViewById(R.id.clickButton);
+        autoClickButton = (Button) findViewById(R.id.autoClickButton);
+        betterClickButton = (Button) findViewById(R.id.betterClickButton);
+        textView2 = (TextView) findViewById(R.id.textView2);
+        messageTextView = (TextView) findViewById(R.id.messageTextView);
+        clickButton.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                controllerClick();
+            }
+
+        });
+        autoClickButton.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                getAutoClicks();
+            }
+
+        });
+        betterClickButton.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                getBetterClicks();
+            }
+
+        });
+
         try {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_main);
-
-            final Button clickButton = (Button) findViewById(R.id.clickButton);
-            autoClickButton = (Button) findViewById(R.id.autoClickButton);
-            betterClickButton = (Button) findViewById(R.id.betterClickButton);
-            textView2 = (TextView) findViewById(R.id.textView2);
-
-            clickButton.setOnClickListener(new View.OnClickListener(){
-                public void onClick(View v){
-                    controllerClick();
-                }
-
-            });
-            //load();
+            load();}
+        catch (Exception e){
+            messageTextView.setText("Load failed in onCreate \n " + e);
+        }
             update();
-            autoClickButton.setOnClickListener(new View.OnClickListener(){
-                public void onClick(View v){
-                    getAutoClicks();
-                }
-
-            });
-            betterClickButton.setOnClickListener(new View.OnClickListener(){
-                public void onClick(View v){
-                    getBetterClicks();
-                }
-
-            });
 
             new CountDownTimer(2000000000, 1000)
             {
@@ -64,10 +68,8 @@ public class MainActivity extends AppCompatActivity {
                     // finish off when we're all dead !
                 }
             }.start();
-        }
-        catch (Exception e){
 
-        }
+
 
     }
 
@@ -78,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
             save();
         }
         catch (Exception e){
-
+            messageTextView.setText("Save failed in onCreate \n " + e);
         }
 
     }
@@ -105,7 +107,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void update() {
-        cashOutput = "Kr " + cashClicker.cash;
+        if(cashClicker.cash<1000){cashOutput = cashClicker.cash + "Kr ";}
+        else if(cashClicker.cash<1000000) {cashOutput = cashClicker.getCash()/1000 + "," + cashClicker.getCash()%1000 + "k";}
+        else if(cashClicker.cash<1000000000) {cashOutput = cashClicker.getCash()/1000000 + "," + cashClicker.getCash()%1000000 + "mil";}
+        else {cashOutput = "På tide å fikse dette ja.\n" + cashClicker.getCash()/1000000 + "," + cashClicker.getCash()%1000000 + "mil";}
         textView2.setText(cashOutput);
         autoClickButton.setText("Levle selvtrykking\n" + cashClicker.pricePerAutoClicker + " kr");
         betterClickButton.setText("Kjøp bedre trykk\n" + cashClicker.priceForBetterClicks + " kr");

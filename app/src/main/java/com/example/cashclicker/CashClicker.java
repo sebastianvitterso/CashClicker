@@ -42,9 +42,11 @@ public class CashClicker {
 
     void buyAutoClicker() {
         if(cash>=pricePerAutoClicker) {
-            cashPerSecond += 2;
+            if(cashPerSecond > 0) {
+                cashPerSecond = (int) Math.round(cashPerSecond * 1.5);
+            }else{cashPerSecond = 1;}
             cash -= pricePerAutoClicker;
-            pricePerAutoClicker += 3;
+            pricePerAutoClicker = (int) Math.round(pricePerAutoClicker * 1.5);
         }
         else {
             System.out.println("You can't afford that!");
@@ -54,9 +56,9 @@ public class CashClicker {
 
     void buyBetterClicks() {
         if(cash>=priceForBetterClicks) {
-            cashPerClick += 1;
+            cashPerClick = (int) Math.round(cashPerClick*1.5);
             cash -= priceForBetterClicks;
-            priceForBetterClicks +=8;
+            priceForBetterClicks = (int) Math.round(priceForBetterClicks * 1.5);
         }
         else {
             System.out.println("You can't afford that!");

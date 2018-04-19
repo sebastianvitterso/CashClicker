@@ -105,7 +105,7 @@
         android:layout_marginRight="40dp"
         android:layout_marginStart="40dp"
         android:layout_marginTop="95dp"
-        android:textAllCaps="true"
+        android:textAllCaps="false"
         android:textSize="50sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -115,8 +115,20 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
+    <TextView
+        android:id="@+id/messageTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="31dp"
+        android:layout_marginTop="33dp"
+        android:text="debug"
+        app:layout_constraintBottom_toTopOf="@+id/autoClickButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/clickButton" />
+
 </android.support.constraint.ConstraintLayout>
 
 
-    <!-- TODO - Add upgrade-prices on buttons -->
-    <!-- TODO - Disable screen-rotation -->
+    <!-- DONE - Add upgrade-prices on buttons -->
+    <!-- DONE - Disable screen-rotation -->
