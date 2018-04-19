@@ -111,6 +111,11 @@ public class CashClicker {
         */
         PrintWriter writer = new PrintWriter(filename, "UTF-8");
         writer.println(cash);
+        writer.println(cashPerSecond);
+        writer.println(cashPerClick);
+        writer.println(clicks);
+        writer.println(pricePerAutoClicker);
+        writer.println(priceForBetterClicks);
         writer.close();
 
     }
@@ -118,10 +123,13 @@ public class CashClicker {
     public void loadFromFile() throws IOException {
 
         Scanner sc = new Scanner(filename);
-        while (sc.hasNextLine()) {
-            int i = sc.nextInt();
-            cash = i;
-            System.out.println(i);
+        if (sc.hasNextLine()) {
+            cash = sc.nextInt();
+            cashPerSecond = sc.nextInt();
+            cashPerClick = sc.nextInt();
+            clicks = sc.nextInt();
+            pricePerAutoClicker = sc.nextInt();
+            priceForBetterClicks = sc.nextInt();
         }
         sc.close();
     }
