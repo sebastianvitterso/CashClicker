@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Handler;
@@ -20,47 +21,67 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        try {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_main);
 
-        final Button clickButton = (Button) findViewById(R.id.clickButton);
-        autoClickButton = (Button) findViewById(R.id.autoClickButton);
-        betterClickButton = (Button) findViewById(R.id.betterClickButton);
-        textView2 = (TextView) findViewById(R.id.textView2);
-        clickButton.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                controllerClick();
-            }
+            final Button clickButton = (Button) findViewById(R.id.clickButton);
+            autoClickButton = (Button) findViewById(R.id.autoClickButton);
+            betterClickButton = (Button) findViewById(R.id.betterClickButton);
+            textView2 = (TextView) findViewById(R.id.textView2);
 
-        });
-        autoClickButton.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                getAutoClicks();
-            }
+            clickButton.setOnClickListener(new View.OnClickListener(){
+                public void onClick(View v){
+                    controllerClick();
+                }
 
-        });
-        betterClickButton.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                getBetterClicks();
-            }
+            });
+            //load();
+            update();
+            autoClickButton.setOnClickListener(new View.OnClickListener(){
+                public void onClick(View v){
+                    getAutoClicks();
+                }
 
-        });
+            });
+            betterClickButton.setOnClickListener(new View.OnClickListener(){
+                public void onClick(View v){
+                    getBetterClicks();
+                }
 
-        new CountDownTimer(2000000000, 1000)
-        {
-            public void onTick(long millisUntilFinished)
+            });
+
+            new CountDownTimer(2000000000, 1000)
             {
-                cashClicker.autoClick();
-                update();
-            }
+                public void onTick(long millisUntilFinished)
+                {
+                    cashClicker.autoClick();
+                    update();
+                }
 
-            public void onFinish()
-            {
-                // finish off when we're all dead !
-            }
-        }.start();
+                public void onFinish()
+                {
+                    // finish off when we're all dead !
+                }
+            }.start();
+        }
+        catch (Exception e){
+
+        }
+
     }
 
+    @Override
+    protected void onPause() {
+        try {
+            super.onPause();
+            save();
+        }
+        catch (Exception e){
+
+        }
+
+    }
 
 
 
@@ -89,6 +110,16 @@ public class MainActivity extends AppCompatActivity {
         autoClickButton.setText("Levle selvtrykking\n" + cashClicker.pricePerAutoClicker + " kr");
         betterClickButton.setText("Kjøp bedre trykk\n" + cashClicker.priceForBetterClicks + " kr");
     }
+
+    void save() throws IOException{
+        cashClicker.saveToFile();
+    }
+
+    void load () throws IOException {
+        cashClicker.loadFromFile();
+        update();
+    }
+
 
 
 

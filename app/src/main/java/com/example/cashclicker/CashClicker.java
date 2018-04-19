@@ -1,5 +1,12 @@
 package com.example.cashclicker;
 
+import android.content.Context;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Handler;
@@ -12,7 +19,7 @@ public class CashClicker {
     int clicks;
     int pricePerAutoClicker;
     int priceForBetterClicks;
-
+    String filename = "savedData.txt";
 
     public CashClicker() {
         cash = 0;
@@ -57,7 +64,8 @@ public class CashClicker {
 
     }
  
-    
+
+
     
     
     int getCash() {
@@ -87,9 +95,42 @@ public class CashClicker {
         };
     }*/
 
-}
 
 
 // TODO: 19.04.2018 - Implement saving (text file?)
 // https://stackoverflow.com/questions/33740686/android-call-function-on-app-close
-// TODO: 19.04.2018 - Balance pricing (exponential?) 
+
+    public void saveToFile() throws IOException {
+        /*FileOutputStream outputStream = getApplicationContext().openFileOutput(filename, Context.MODE_PRIVATE);
+        outputStream.write(Integer.toString(cash).getBytes());
+        outputStream.close();*/
+        /*File file = new File(filename);
+        file.createNewFile();
+        */
+        PrintWriter writer = new PrintWriter(filename, "UTF-8");
+        writer.println(cash);
+        writer.close();
+
+    }
+
+    public void loadFromFile() throws IOException {
+
+        Scanner sc = new Scanner(filename);
+        while (sc.hasNextLine()) {
+            int i = sc.nextInt();
+            cash = i;
+            System.out.println(i);
+        }
+        sc.close();
+    }
+
+
+
+
+
+
+
+// TODO: 19.04.2018 - Balance pricing (exponential?)
+
+
+}
