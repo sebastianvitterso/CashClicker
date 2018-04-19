@@ -21,8 +21,7 @@ public class MainActivity extends AppCompatActivity {
     TextView messageTextView;
     Button autoClickButton;
     Button betterClickButton;
-    Button saveButton;
-    Button loadButton;
+    Button resetButton;
     String cashOutput;
 
     @Override
@@ -34,13 +33,18 @@ public class MainActivity extends AppCompatActivity {
         final Button clickButton = (Button) findViewById(R.id.clickButton);
         autoClickButton = (Button) findViewById(R.id.autoClickButton);
         betterClickButton = (Button) findViewById(R.id.betterClickButton);
-        saveButton = (Button) findViewById(R.id.saveButton);
-        loadButton = (Button) findViewById(R.id.loadButton);
         textView2 = (TextView) findViewById(R.id.textView2);
+        resetButton = (Button) findViewById(R.id.resetButton);
         messageTextView = (TextView) findViewById(R.id.messageTextView);
         clickButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 controllerClick();
+            }
+
+        });
+        resetButton.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                resetSaveFile();
             }
 
         });
@@ -56,19 +60,6 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
-
-        saveButton.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                saveToFile();
-            }
-        });
-        loadButton.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                loadFromFile();
-                update();
-            }
-        });
-
 
         loadFromFile();
         update();
@@ -91,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        // Put save method here
+        saveToFile();
     }
 
 
@@ -115,7 +106,8 @@ public class MainActivity extends AppCompatActivity {
         if(cashClicker.cash<1000){cashOutput = cashClicker.cash + "Kr ";}
         else if(cashClicker.cash<1000000) {cashOutput = cashClicker.getCash()/1000 + "," + cashClicker.getCash()%1000 + "k";}
         else if(cashClicker.cash<1000000000) {cashOutput = cashClicker.getCash()/1000000 + "," + cashClicker.getCash()%1000000 + "mil";}
-        else {cashOutput = "På tide å fikse dette ja.\n" + cashClicker.getCash()/1000000 + "," + cashClicker.getCash()%1000000 + "mil";}
+        else {cashOutput = cashClicker.getCash()/1000000000 + "," + cashClicker.getCash()%1000000000 + "mrd";}
+
         textView2.setText(cashOutput);
         autoClickButton.setText("Levle selvtrykking\n" + cashClicker.pricePerAutoClicker + " kr");
         betterClickButton.setText("Kjøp bedre trykk\n" + cashClicker.priceForBetterClicks + " kr");
@@ -145,6 +137,27 @@ public class MainActivity extends AppCompatActivity {
         catch(Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void resetSaveFile(){
+        String saveString = "";
+        saveString += 0 + "\n";
+        saveString += 0 + "\n";
+        saveString += 1 + "\n";
+        saveString += 0 + "\n";
+        saveString += 5 + "\n";
+        saveString += 3;
+
+        try{
+            FileOutputStream fos = openFileOutput(textFileLocation, Context.MODE_PRIVATE);
+            fos.write(saveString.getBytes());
+            fos.close();
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        loadFromFile();
     }
 
     public void loadFromFile(){

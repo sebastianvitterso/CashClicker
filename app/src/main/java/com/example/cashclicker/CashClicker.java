@@ -1,19 +1,13 @@
 package com.example.cashclicker;
 
-import android.content.Context;
-import java.io.IOException;
-import java.util.ArrayList;
-
 public class CashClicker {
 
-    int cash;
+    long cash;
     int cashPerSecond;
     int cashPerClick;
     int clicks;
     int pricePerAutoClicker;
     int priceForBetterClicks;
-    Context context;
-    String filename;
 
     public CashClicker() {
         cash = 0;
@@ -37,10 +31,10 @@ public class CashClicker {
     void buyAutoClicker() {
         if(cash>=pricePerAutoClicker) {
             if(cashPerSecond > 0) {
-                cashPerSecond = (int) Math.round(cashPerSecond * 1.5);
+                cashPerSecond = (int) Math.ceil(cashPerSecond * 1.05);
             }else{cashPerSecond = 1;}
             cash -= pricePerAutoClicker;
-            pricePerAutoClicker = (int) Math.round(pricePerAutoClicker * 1.5);
+            pricePerAutoClicker = (int) Math.ceil(pricePerAutoClicker * 1.2);
         }
         else {
             System.out.println("You can't afford that!");
@@ -50,9 +44,9 @@ public class CashClicker {
 
     void buyBetterClicks() {
         if(cash>=priceForBetterClicks) {
-            cashPerClick = (int) Math.round(cashPerClick*1.5);
+            cashPerClick = (int) Math.ceil(cashPerClick*1.05);
             cash -= priceForBetterClicks;
-            priceForBetterClicks = (int) Math.round(priceForBetterClicks * 1.5);
+            priceForBetterClicks = (int) Math.ceil(priceForBetterClicks * 1.25);
         }
         else {
             System.out.println("You can't afford that!");
@@ -64,7 +58,7 @@ public class CashClicker {
 
     
     
-    int getCash() {
+    long getCash() {
         return cash;
     }
 
@@ -75,26 +69,6 @@ public class CashClicker {
 
 
 // TODO: 19.04.2018 - Implement saving (text file?)
-// https://stackoverflow.com/questions/33740686/android-call-function-on-app-close
-
-
-
-
-
-    /*
-    DataOutputStream stream = new DataOutputStream(new FileOutputStream(file));
-        stream.writeInt(cash);
-        stream.writeInt(cashPerSecond);
-        stream.writeInt(cashPerClick);
-        stream.writeInt(clicks);
-        stream.writeInt(pricePerAutoClicker);
-        stream.writeInt(priceForBetterClicks);
-        stream.close();
-     */
-
-
-
-
 
 
 
