@@ -121,7 +121,6 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="31dp"
         android:layout_marginTop="33dp"
-        android:text="debug"
         app:layout_constraintBottom_toTopOf="@+id/autoClickButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

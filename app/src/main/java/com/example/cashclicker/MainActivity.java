@@ -103,33 +103,45 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void update() {
-        String afterComma;
-        if(cashClicker.cash<1000){cashOutput = cashClicker.cash + " Kr";}
-        else if(cashClicker.cash<1000000) {
-            afterComma = String.valueOf(cashClicker.getCash()).substring(String.valueOf(cashClicker.getCash()).length()-3);
-            cashOutput = cashClicker.getCash()/1000 + "," + afterComma + " k";}
-        else if(cashClicker.cash<1000000000) {
-            afterComma = String.valueOf(cashClicker.getCash()).substring(String.valueOf(cashClicker.getCash()).length()-6, String.valueOf(cashClicker.getCash()).length()-3);
-            cashOutput = cashClicker.getCash()/1000000 + "," + afterComma + " mil";}
-        else if(cashClicker.cash<1000000000000L) {
-            afterComma = String.valueOf(cashClicker.getCash()).substring(String.valueOf(cashClicker.getCash()).length()-9, String.valueOf(cashClicker.getCash()).length()-6);
-            cashOutput = cashClicker.getCash()/1000000000 + "," + afterComma + " mrd";}
-        else if(cashClicker.cash<1000000000000000L) {
-            afterComma = String.valueOf(cashClicker.getCash()).substring(String.valueOf(cashClicker.getCash()).length()-12,String.valueOf(cashClicker.getCash()).length()-9);
-            cashOutput = cashClicker.getCash()/1000000000000L + "," + afterComma + " bil";}
-        else if(cashClicker.cash<1000000000000000000L) {
-            afterComma = String.valueOf(cashClicker.getCash()).substring(String.valueOf(cashClicker.getCash()).length()-15,String.valueOf(cashClicker.getCash()).length()-12);
-            cashOutput = cashClicker.getCash()/1000000000000000L + "," + afterComma + " brd";}
-        else {
-            afterComma = String.valueOf(cashClicker.getCash()).substring(String.valueOf(cashClicker.getCash()).length()-18,String.valueOf(cashClicker.getCash()).length()-15);
-            cashOutput = "Nå nærmer vi oss overflow.\n" + cashClicker.getCash()/1000000000000000000L + "," + afterComma + " tri";}
-
+        cashOutput = longToString(cashClicker.cash);
         textView2.setText(cashOutput);
-        autoClickButton.setText("Levle selvtrykking\n" + cashClicker.pricePerAutoClicker + " kr");
-        betterClickButton.setText("Kjøp bedre trykk\n" + cashClicker.priceForBetterClicks + " kr");
+        autoClickButton.setText("Levle selvtrykking\n" + longToString(cashClicker.pricePerAutoClicker));
+        betterClickButton.setText("Kjøp bedre trykk\n" + longToString(cashClicker.priceForBetterClicks));
     }
 
+    public String longToString(long longNumber){
+        String afterComma;
+        String returnString;
+        if(longNumber<1000){returnString = longNumber + " kr";
+        }
+        else if(longNumber<1000000) {
+            afterComma = String.valueOf(longNumber).substring(String.valueOf(longNumber).length()-3);
+            returnString = longNumber/1000 + "," + afterComma + " k";
+        }
+        else if(longNumber<1000000000) {
+            afterComma = String.valueOf(longNumber).substring(String.valueOf(longNumber).length()-6, String.valueOf(longNumber).length()-3);
+            returnString = longNumber/1000000 + "," + afterComma + " mil";
+        }
+        else if(cashClicker.cash<1000000000000L) {
+            afterComma = String.valueOf(longNumber).substring(String.valueOf(longNumber).length()-9, String.valueOf(longNumber).length()-6);
+            returnString = longNumber/1000000000 + "," + afterComma + " mrd";
+        }
+        else if(cashClicker.cash<1000000000000000L) {
+            afterComma = String.valueOf(longNumber).substring(String.valueOf(longNumber).length()-12,String.valueOf(longNumber).length()-9);
+            returnString = longNumber/1000000000000L + "," + afterComma + " bil";
+        }
+        else if(cashClicker.cash<1000000000000000000L) {
+            afterComma = String.valueOf(longNumber).substring(String.valueOf(longNumber).length()-15,String.valueOf(longNumber).length()-12);
+            returnString = longNumber/1000000000000000L + "," + afterComma + " brd";
+        }
+        else {
+            afterComma = String.valueOf(longNumber).substring(String.valueOf(longNumber).length()-18,String.valueOf(longNumber).length()-15);
+            returnString = "Nå nærmer vi oss overflow.\n" + longNumber/1000000000000000000L + "," + afterComma + " tri";
+        }
 
+
+        return returnString;
+    }
 
 
 
