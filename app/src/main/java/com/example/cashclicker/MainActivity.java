@@ -103,10 +103,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void update() {
-        if(cashClicker.cash<1000){cashOutput = cashClicker.cash + "Kr ";}
-        else if(cashClicker.cash<1000000) {cashOutput = cashClicker.getCash()/1000 + "," + cashClicker.getCash()%1000 + "k";}
-        else if(cashClicker.cash<1000000000) {cashOutput = cashClicker.getCash()/1000000 + "," + cashClicker.getCash()%1000000 + "mil";}
-        else {cashOutput = cashClicker.getCash()/1000000000 + "," + cashClicker.getCash()%1000000000 + "mrd";}
+        String afterComma;
+        if(cashClicker.cash<1000){cashOutput = cashClicker.cash + " Kr";}
+        else if(cashClicker.cash<1000000) {
+            afterComma = String.valueOf(cashClicker.getCash()).substring(String.valueOf(cashClicker.getCash()).length()-3);
+            cashOutput = cashClicker.getCash()/1000 + "," + afterComma + " k";}
+        else if(cashClicker.cash<1000000000) {
+            afterComma = String.valueOf(cashClicker.getCash()).substring(String.valueOf(cashClicker.getCash()).length()-6, String.valueOf(cashClicker.getCash()).length()-3);
+            cashOutput = cashClicker.getCash()/1000000 + "," + afterComma + " mil";}
+        else if(cashClicker.cash<1000000000000L) {
+            afterComma = String.valueOf(cashClicker.getCash()).substring(String.valueOf(cashClicker.getCash()).length()-9, String.valueOf(cashClicker.getCash()).length()-6);
+            cashOutput = cashClicker.getCash()/1000000000 + "," + afterComma + " mrd";}
+        else if(cashClicker.cash<1000000000000000L) {
+            afterComma = String.valueOf(cashClicker.getCash()).substring(String.valueOf(cashClicker.getCash()).length()-12,String.valueOf(cashClicker.getCash()).length()-9);
+            cashOutput = cashClicker.getCash()/1000000000000L + "," + afterComma + " bil";}
+        else if(cashClicker.cash<1000000000000000000L) {
+            afterComma = String.valueOf(cashClicker.getCash()).substring(String.valueOf(cashClicker.getCash()).length()-15,String.valueOf(cashClicker.getCash()).length()-12);
+            cashOutput = cashClicker.getCash()/1000000000000000L + "," + afterComma + " brd";}
+        else {
+            afterComma = String.valueOf(cashClicker.getCash()).substring(String.valueOf(cashClicker.getCash()).length()-18,String.valueOf(cashClicker.getCash()).length()-15);
+            cashOutput = "Nå nærmer vi oss overflow.\n" + cashClicker.getCash()/1000000000000000000L + "," + afterComma + " tri";}
 
         textView2.setText(cashOutput);
         autoClickButton.setText("Levle selvtrykking\n" + cashClicker.pricePerAutoClicker + " kr");
@@ -127,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
         saveString += cashClicker.cashPerClick + "\n";
         saveString += cashClicker.clicks + "\n";
         saveString += cashClicker.pricePerAutoClicker + "\n";
-        saveString += cashClicker.priceForBetterClicks;
+        saveString += cashClicker.priceForBetterClicks + "";
 
         try{
             FileOutputStream fos = openFileOutput(textFileLocation, Context.MODE_PRIVATE);

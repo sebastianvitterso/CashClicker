@@ -3,11 +3,11 @@ package com.example.cashclicker;
 public class CashClicker {
 
     long cash;
-    int cashPerSecond;
-    int cashPerClick;
+    long cashPerSecond;
+    long cashPerClick;
     int clicks;
-    int pricePerAutoClicker;
-    int priceForBetterClicks;
+    long pricePerAutoClicker;
+    long priceForBetterClicks;
 
     public CashClicker() {
         cash = 0;
@@ -31,10 +31,10 @@ public class CashClicker {
     void buyAutoClicker() {
         if(cash>=pricePerAutoClicker) {
             if(cashPerSecond > 0) {
-                cashPerSecond = (int) Math.ceil(cashPerSecond * 1.05);
+                cashPerSecond = (long) Math.ceil(cashPerSecond * 1.15);
             }else{cashPerSecond = 1;}
             cash -= pricePerAutoClicker;
-            pricePerAutoClicker = (int) Math.ceil(pricePerAutoClicker * 1.2);
+            pricePerAutoClicker = (long) Math.ceil(pricePerAutoClicker * 1.18);
         }
         else {
             System.out.println("You can't afford that!");
@@ -44,9 +44,9 @@ public class CashClicker {
 
     void buyBetterClicks() {
         if(cash>=priceForBetterClicks) {
-            cashPerClick = (int) Math.ceil(cashPerClick*1.05);
+            cashPerClick = (long) Math.ceil(cashPerClick*1.15);
             cash -= priceForBetterClicks;
-            priceForBetterClicks = (int) Math.ceil(priceForBetterClicks * 1.25);
+            priceForBetterClicks = (long) Math.ceil(priceForBetterClicks * 1.18);
         }
         else {
             System.out.println("You can't afford that!");
@@ -68,11 +68,8 @@ public class CashClicker {
     }
 
 
-// TODO: 19.04.2018 - Implement saving (text file?)
-
-
-
-// TODO: 19.04.2018 - Balance pricing (exponential?)
+// DONE: 19.04.2018 - Implement saving (text file?)
+// TODO: 20.04.2018 - Balance pricing better (exponential now works, but not perfect.)
 
 
 }
