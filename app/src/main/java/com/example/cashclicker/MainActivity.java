@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     TextView messageTextView;
     Button autoClickButton;
     Button betterClickButton;
-    Button resetButton;
+    //Button resetButton;
     String cashOutput;
 
     @Override
@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         autoClickButton = (Button) findViewById(R.id.autoClickButton);
         betterClickButton = (Button) findViewById(R.id.betterClickButton);
         textView2 = (TextView) findViewById(R.id.textView2);
-        resetButton = (Button) findViewById(R.id.resetButton);
+        //resetButton = (Button) findViewById(R.id.resetButton);
         messageTextView = (TextView) findViewById(R.id.messageTextView);
         clickButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
@@ -42,12 +42,12 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
-        resetButton.setOnClickListener(new View.OnClickListener(){
+        /*resetButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 resetSaveFile();
             }
 
-        });
+        });*/
         autoClickButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 getAutoClicks();
